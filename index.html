@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarmaDocs — Gestión documental para droguerías</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader" class="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">
+      <svg width="32" height="32" viewBox="0 0 56 56" fill="none">
+        <path d="M20 34C20 34 24 18 36 16" stroke="#57BEBD" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M36 16C36 16 38 28 28 38" stroke="rgba(87,190,189,.55)" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M28 38C28 38 18 36 20 24" stroke="#57BEBD" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 3"/>
+      </svg>
+    </div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
+</div>
+
+<!-- ═══════════ AUTH ═══════════ -->
+<div id="auth-wrapper" class="auth-wrapper hidden">
+  <div class="auth-bg">
+    <div class="mesh-orb orb-1"></div><div class="mesh-orb orb-2"></div><div class="mesh-orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+  <div class="auth-panel-left">
+    <div class="auth-brand">
+      <div class="brand-mark"><svg width="22" height="22" viewBox="0 0 56 56" fill="none"><path d="M20 34C20 34 24 18 36 16" stroke="#57BEBD" stroke-width="4" stroke-linecap="round"/><path d="M36 16C36 16 38 28 28 38" stroke="rgba(87,190,189,.6)" stroke-width="4" stroke-linecap="round"/></svg></div>
+      <span class="brand-name"><span>Farma</span>Docs</span>
+    </div>
+    <div class="auth-hero">
+      <h1>Gestión documental<br><span class="gradient-text">inteligente</span><br>para droguerías.</h1>
+      <p>Centraliza, controla y audita todos tus documentos de cumplimiento desde un solo lugar.</p>
+      <div class="auth-features">
+        <div class="feat-pill"><span class="feat-dot"></span>Documentación Legal</div>
+        <div class="feat-pill"><span class="feat-dot"></span>Talento Humano</div>
+        <div class="feat-pill"><span class="feat-dot"></span>Sist Gestión de calidad & Normatividad</div>
+        <div class="feat-pill"><span class="feat-dot"></span>Alertas en tiempo real</div>
+      </div>
+    </div>
+    <div class="auth-footer-brand"><span>© 2024 FarmaDocs</span><span>·</span><span>Auditorías y Consultoría Farmacéutica</span></div>
+  </div>
+  <div class="auth-panel-right">
+    <!-- LOGIN -->
+    <div id="page-login" class="auth-form-card active">
+      <div class="form-card-header"><h2>Bienvenido de vuelta</h2><p>Ingresa tus credenciales para continuar</p></div>
+      <div class="field-group"><label class="field-label">Correo electrónico</label>
+        <div class="field-wrap"><svg class="field-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/></svg>
+        <input type="email" id="login-email" class="field-input" placeholder="correo@drogueria.com"/></div>
+      </div>
+      <div class="field-group"><label class="field-label">Contraseña</label>
+        <div class="field-wrap"><svg class="field-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" fill="currentColor"/></svg>
+        <input type="password" id="login-password" class="field-input has-right-icon" placeholder="••••••••"/>
+        <button type="button" class="toggle-pwd" onclick="togglePwd('login-password',this)" tabindex="-1"><svg class="eye-off" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/></svg><svg class="eye-on hidden" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M2 4.27l2.28 2.28.46.46A11.8 11.8 0 001 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27z" fill="currentColor"/></svg></button>
+        </div>
+      </div>
+      <div class="form-meta"><a href="#" class="link-subtle" onclick="showPage('page-recover')">¿Olvidaste tu contraseña?</a></div>
+      <button class="btn-cta" onclick="doLogin()"><span>Iniciar sesión</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <p class="form-switch">¿No tienes cuenta? <a href="#" onclick="showPage('page-register')">Crear cuenta gratis</a></p>
+      <p class="form-error" id="login-error"></p>
+    </div>
+    <!-- REGISTER -->
+    <div id="page-register" class="auth-form-card">
+      <div class="form-card-header"><h2>Crear cuenta</h2><p>Completa tu información para comenzar</p></div>
+      <div class="register-grid">
+        <div class="field-group"><label class="field-label">Nombre completo *</label><div class="field-wrap"><input type="text" id="reg-name" class="field-input" placeholder="Vanessa Pérez"/></div></div>
+        <div class="field-group"><label class="field-label">Cédula</label><div class="field-wrap"><input type="text" id="reg-cedula" class="field-input" placeholder="12345678"/></div></div>
+        <div class="field-group"><label class="field-label">Establecimiento *</label><div class="field-wrap"><input type="text" id="reg-establecimiento" class="field-input" placeholder="Droguería Franzea"/></div></div>
+        <div class="field-group"><label class="field-label">NIT</label><div class="field-wrap"><input type="text" id="reg-nit" class="field-input" placeholder="900123456-7"/></div></div>
+        <div class="field-group full"><label class="field-label">Dirección</label><div class="field-wrap"><input type="text" id="reg-direccion" class="field-input" placeholder="Calle 10 # 20-30, Medellín"/></div></div>
+        <div class="field-group"><label class="field-label">Teléfono</label><div class="field-wrap"><input type="tel" id="reg-telefono" class="field-input" placeholder="3001234567"/></div></div>
+        <div class="field-group"><label class="field-label">Correo *</label><div class="field-wrap"><input type="email" id="reg-email" class="field-input" placeholder="correo@drogueria.com"/></div></div>
+        <div class="field-group full"><label class="field-label">Contraseña *</label>
+          <div class="field-wrap"><svg class="field-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" fill="currentColor"/></svg>
+          <input type="password" id="reg-password" class="field-input has-right-icon" placeholder="Mínimo 6 caracteres"/>
+          <button type="button" class="toggle-pwd" onclick="togglePwd('reg-password',this)" tabindex="-1"><svg class="eye-off" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/></svg><svg class="eye-on hidden" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M2 4.27l2.28 2.28.46.46A11.8 11.8 0 001 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27z" fill="currentColor"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <button class="btn-cta" onclick="doRegister()"><span>Crear mi cuenta</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <p class="form-switch">¿Ya tienes cuenta? <a href="#" onclick="showPage('page-login')">Iniciar sesión</a></p>
+      <p class="form-error" id="reg-error"></p>
+    </div>
+    <!-- RECOVER -->
+    <div id="page-recover" class="auth-form-card">
+      <div class="form-card-header"><h2>Recuperar acceso</h2><p>Te enviaremos un enlace para restablecer tu contraseña</p></div>
+      <div class="field-group"><label class="field-label">Correo electrónico</label>
+        <div class="field-wrap"><svg class="field-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/></svg>
+        <input type="email" id="recover-email" class="field-input" placeholder="correo@drogueria.com"/></div>
+      </div>
+      <button class="btn-cta" onclick="doRecover()"><span>Enviar enlace</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <p class="form-switch"><a href="#" onclick="showPage('page-login')">← Volver al inicio de sesión</a></p>
+      <p class="form-error" id="recover-msg"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ APP ═══════════ -->
+<div id="app-wrapper" class="app-wrapper hidden">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="brand-mark sm" id="brand-logo-wrap">
+          <img src="Logo.png" alt="FarmaDocs" onerror="this.style.display='none';document.getElementById('brand-logo-svg').style.display='block'" style="display:block">
+          <svg id="brand-logo-svg" width="46" height="46" viewBox="0 0 56 56" fill="none" style="display:none">
+            <path d="M20 34C20 34 24 18 36 16" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+            <path d="M36 16C36 16 38 28 28 38" stroke="rgba(255,255,255,.65)" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="sidebar-tagline">
+          <span class="sidebar-tagline-name"><span>Farma</span>Docs</span>
+          <span class="sidebar-tagline-sub">Gestión documental para droguerías</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Colapsar / expandir">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- SECCIÓN: PANEL -->
+      <span class="nav-section-label">Panel</span>
+      <!-- INICIO -->
+      <a class="nav-item active" onclick="navigate('home')" data-section="home" title="Inicio">
+        <span class="nav-icon-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9,22 9,12 15,12 15,22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="nav-label">Inicio</span>
+      </a>
+
+      <!-- SECCIÓN: DOCUMENTACIÓN -->
+      <span class="nav-section-label">Documentación</span>
+      <!-- DOCUMENTACIÓN LEGAL -->
+      <div class="nav-accordion">
+        <button class="nav-accordion-trigger" onclick="toggleAccordion('acc-legal')" title="Documentación Legal">
+          <span class="nav-acc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="nav-acc-label">Documentación Legal</span>
+          <svg class="nav-acc-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-accordion-body" id="acc-legal">
+          <a class="nav-sub-item" onclick="navigate('doc','Cámara de Comercio')" data-key="Cámara de Comercio"><span class="nav-sub-dot"></span><span class="nav-label">Cámara de Comercio</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','RUT')" data-key="RUT"><span class="nav-sub-dot"></span><span class="nav-label">RUT</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Representante Legal')" data-key="Representante Legal"><span class="nav-sub-dot"></span><span class="nav-label">Representante Legal</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Certificado Uso de Suelos')" data-key="Certificado Uso de Suelos"><span class="nav-sub-dot"></span><span class="nav-label">Certificado Uso de Suelos</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Certificado de Calibración')" data-key="Certificado de Calibración"><span class="nav-sub-dot"></span><span class="nav-label">Certificado de Calibración</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Certificado de Fumigación')" data-key="Certificado de Fumigación"><span class="nav-sub-dot"></span><span class="nav-label">Certificado de Fumigación</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Certificado de Bomberos')" data-key="Certificado de Bomberos"><span class="nav-sub-dot"></span><span class="nav-label">Certificado de Bomberos</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Contrato Recolección Residuos')" data-key="Contrato Recolección Residuos"><span class="nav-sub-dot"></span><span class="nav-label">Contrato Recolección Residuos</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Recarga Extintor')" data-key="Recarga Extintor"><span class="nav-sub-dot"></span><span class="nav-label">Recarga Extintor</span></a>
+        </div>
+      </div>
+
+      <!-- ACTAS DE VISITAS -->
+      <div class="nav-accordion">
+        <button class="nav-accordion-trigger" onclick="toggleAccordion('acc-actas')" title="Actas de Visitas">
+          <span class="nav-acc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="nav-acc-label">Actas de Visitas</span>
+          <svg class="nav-acc-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-accordion-body" id="acc-actas">
+          <a class="nav-sub-item" onclick="navigate('doc','Actas de Visitas - Secretaría Seccional')" data-key="Actas de Visitas - Secretaría Seccional"><span class="nav-sub-dot"></span><span class="nav-label">Secretaría Seccional de Salud</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Actas de Visitas - Secretaría de Salud')" data-key="Actas de Visitas - Secretaría de Salud"><span class="nav-sub-dot"></span><span class="nav-label">Secretaría de Salud</span></a>
+        </div>
+      </div>
+
+      <!-- TALENTO HUMANO -->
+      <div class="nav-accordion">
+        <button class="nav-accordion-trigger" onclick="toggleAccordion('acc-talento')" title="Talento Humano">
+          <span class="nav-acc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="nav-acc-label">Talento Humano</span>
+          <svg class="nav-acc-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-accordion-body" id="acc-talento">
+          <a class="nav-sub-item" onclick="navigate('doc','Administrador')" data-key="Administrador"><span class="nav-sub-dot"></span><span class="nav-label">Administrador</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Regente')" data-key="Regente"><span class="nav-sub-dot"></span><span class="nav-label">Regente</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Auxiliar')" data-key="Auxiliar"><span class="nav-sub-dot"></span><span class="nav-label">Auxiliar</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','Mensajero')" data-key="Mensajero"><span class="nav-sub-dot"></span><span class="nav-label">Mensajero</span></a>
+        </div>
+      </div>
+
+      <!-- NORMATIVIDAD -->
+      <div class="nav-accordion">
+        <button class="nav-accordion-trigger" onclick="toggleAccordion('acc-norma')" title="Normatividad">
+          <span class="nav-acc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="nav-acc-label">Normatividad</span>
+          <svg class="nav-acc-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-accordion-body" id="acc-norma">
+          <a class="nav-sub-item" onclick="navigate('doc','Sistema de Gestión de la Calidad')" data-key="Sistema de Gestión de la Calidad"><span class="nav-sub-dot"></span><span class="nav-label">Sistema de Gestión de la Calidad</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','PGIRS')" data-key="PGIRS"><span class="nav-sub-dot"></span><span class="nav-label">PGIRASA</span></a>
+        </div>
+      </div>
+
+      <!-- SIST GESTIÓN DE CALIDAD -->
+      <div class="nav-accordion">
+        <button class="nav-accordion-trigger" onclick="toggleAccordion('acc-sgc')" title="Gestión de Calidad">
+          <span class="nav-acc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="nav-acc-label">Gestión de Calidad</span>
+          <svg class="nav-acc-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-accordion-body" id="acc-sgc">
+          <a class="nav-sub-item" onclick="navigate('doc','Generalidades')" data-key="Generalidades"><span class="nav-sub-dot"></span><span class="nav-label">Generalidades</span></a>
+          <a class="nav-sub-item" onclick="navigate('sgc-sub','Procesos Estratégicos')" data-key="Procesos Estratégicos"><span class="nav-sub-dot"></span><span class="nav-label">Proc. Estratégicos</span></a>
+          <a class="nav-sub-item" onclick="navigate('sgc-sub','Procesos Misionales')" data-key="Procesos Misionales"><span class="nav-sub-dot"></span><span class="nav-label">Proc. Misionales</span></a>
+          <a class="nav-sub-item" onclick="navigate('sgc-sub','Procesos de Apoyo y de Soporte')" data-key="Procesos de Apoyo y de Soporte"><span class="nav-sub-dot"></span><span class="nav-label">Proc. de Apoyo y Soporte</span></a>
+          <a class="nav-sub-item" onclick="navigate('sgc-sub','Procesos de Evaluación y Control')" data-key="Procesos de Evaluación y Control"><span class="nav-sub-dot"></span><span class="nav-label">Proc. de Evaluación y Control</span></a>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: MÓDULOS -->
+      <span class="nav-section-label">Módulos</span>
+      <!-- PGIRASA -->
+      <div class="nav-accordion">
+        <button class="nav-accordion-trigger" onclick="toggleAccordion('acc-pgirasa')" title="PGIRASA">
+          <span class="nav-acc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="nav-acc-label">PGIRASA</span>
+          <svg class="nav-acc-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-accordion-body" id="acc-pgirasa">
+          <a class="nav-sub-item" onclick="navigate('doc','PGIRASA-Información General')" data-key="PGIRASA-Información General"><span class="nav-sub-dot"></span><span class="nav-label">Información General</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','PGIRASA-Políticas Institucionales')" data-key="PGIRASA-Políticas Institucionales"><span class="nav-sub-dot"></span><span class="nav-label">Políticas Institucionales</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','PGIRASA-Clasificación del Generador')" data-key="PGIRASA-Clasificación del Generador"><span class="nav-sub-dot"></span><span class="nav-label">Clasificación del Generador</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','PGIRASA-Gestión Integral')" data-key="PGIRASA-Gestión Integral"><span class="nav-sub-dot"></span><span class="nav-label">Gestión Integral</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','PGIRASA-Gestión Interna')" data-key="PGIRASA-Gestión Interna"><span class="nav-sub-dot"></span><span class="nav-label">Gestión Interna</span></a>
+          <a class="nav-sub-item" onclick="navigate('doc','PGIRASA-Gestión Externa')" data-key="PGIRASA-Gestión Externa"><span class="nav-sub-dot"></span><span class="nav-label">Gestión Externa</span></a>
+        </div>
+      </div>
+
+      <!-- ENCUESTAS Y PQRS -->
+      <a class="nav-item" onclick="navigate('doc','Encuestas y PQRS')" data-key="Encuestas y PQRS" title="Encuestas y PQRS">
+        <span class="nav-icon-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="nav-label">Encuestas y PQRS</span>
+      </a>
+
+      <!-- PUBLICIDAD -->
+      <a class="nav-item" onclick="navigate('doc','Publicidad')" data-key="Publicidad" title="Publicidad">
+        <span class="nav-icon-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 4H5a2 2 0 00-2 2v14l4-4h12a2 2 0 002-2V6a2 2 0 00-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="nav-label">Publicidad</span>
+      </a>
+
+      <!-- ALERTAS SANITARIAS -->
+      <a class="nav-item" onclick="navigate('doc','Alertas Sanitarias')" data-key="Alertas Sanitarias" title="Alertas Sanitarias">
+        <span class="nav-icon-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="nav-label">Alertas Sanitarias</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-pill">
+        <div class="user-avatar-sm" id="sidebar-avatar">FD</div>
+        <div class="user-meta"><span class="user-name-sm" id="sidebar-name">Usuario</span><span class="user-role-sm" id="sidebar-role">Regente</span></div>
+      </div>
+      <button class="logout-pill" onclick="doLogout()" title="Cerrar sesión"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main-content" id="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" onclick="toggleMobileSidebar()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <div class="breadcrumb" id="breadcrumb" style="display:none"><span class="bc-active">Inicio</span></div>
+      </div>
+      <div class="topbar-right" id="topbar-right">
+        <div class="notif-trigger" id="notif-trigger" onclick="toggleNotifDropdown()">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="notif-count" id="notif-count"></span>
+        </div>
+        <div class="notif-dropdown hidden" id="notif-dropdown">
+          <div class="notif-dd-head"><strong>Notificaciones</strong><span class="notif-mark-all" onclick="markAllRead()">Marcar todo leído</span></div>
+          <div class="notif-dd-list" id="notif-dd-list"><div class="notif-empty">Sin notificaciones</div></div>
+          <div class="notif-dd-footer"><a href="#">Ver todas las alertas</a></div>
+        </div>
+        <div class="profile-trigger" id="profile-trigger" onclick="toggleProfileDropdown()">
+          <div class="topbar-avatar" id="topbar-avatar">FD</div>
+          <div class="topbar-user-info"><span id="topbar-name">Usuario</span><small id="topbar-role">Regente de Farmacia</small></div>
+          <svg class="profile-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="profile-dropdown hidden" id="profile-dropdown">
+          <div class="profile-dd-header">
+            <div class="profile-dd-avatar" id="pd-avatar">FD</div>
+            <div class="profile-dd-info"><strong id="pd-name">Usuario</strong><small id="pd-email">correo@drogueria.com</small><span class="profile-dd-est" id="pd-est">—</span></div>
+          </div>
+          <div class="profile-dd-divider"></div>
+          <div class="profile-dd-item" onclick="openProfileModal('info')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Editar perfil</div>
+          <div class="profile-dd-item" onclick="openProfileModal('password')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Cambiar contraseña</div>
+          <div class="profile-dd-divider"></div>
+          <div class="profile-dd-item danger" onclick="doLogout()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Cerrar sesión</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- VIEW: HOME -->
+    <section id="view-home" class="view active">
+      <div class="view-inner">
+
+        <!-- ── Hero banner ── -->
+        <div class="dash-hero-v2">
+          <div class="dash-hero-v2-left">
+            <div class="dash-hero-v2-eyebrow">Panel de Control</div>
+            <h1 class="dash-hero-v2-title" id="dash-greeting">Bienvenido</h1>
+            <p class="dash-hero-v2-sub" id="dash-sub">Aquí tienes el resumen de tu establecimiento</p>
+          </div>
+          <div class="dash-hero-v2-right">
+            <div class="dash-date-chip" id="dash-date"></div>
+          </div>
+        </div>
+
+        <!-- ── KPI Row ── -->
+        <div class="kpi-row">
+          <!-- Cumplimiento SGC -->
+          <div class="kpi-v2 kpi-v2-teal">
+            <div class="kpi-v2-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="kpi-v2-body">
+              <div class="kpi-v2-label">Sistema de Calidad</div>
+              <div class="kpi-v2-value" id="stat-sgc">—</div>
+              <div class="kpi-v2-bar"><div class="kpi-v2-fill" id="fill-sgc"></div></div>
+              <div class="kpi-v2-badge" id="badge-sgc">Calculando...</div>
+            </div>
+          </div>
+          <!-- PGIRASA -->
+          <div class="kpi-v2 kpi-v2-gray">
+            <div class="kpi-v2-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="kpi-v2-body">
+              <div class="kpi-v2-label">PGIRASA</div>
+              <div class="kpi-v2-value" id="stat-pgirasa">—</div>
+              <div class="kpi-v2-bar"><div class="kpi-v2-fill kpi-v2-fill-gray" id="fill-pgirasa"></div></div>
+              <div class="kpi-v2-badge kpi-v2-badge-gray" id="badge-pgirasa">Calculando...</div>
+            </div>
+          </div>
+          <!-- Alertas -->
+          <div class="kpi-v2 kpi-v2-amber">
+            <div class="kpi-v2-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="kpi-v2-body">
+              <div class="kpi-v2-label">Alertas activas</div>
+              <div class="kpi-v2-value kpi-v2-value-amber" id="stat-vencidos">—</div>
+              <div class="kpi-v2-sub">Requieren atención inmediata</div>
+            </div>
+          </div>
+          <!-- Pendientes -->
+          <div class="kpi-v2 kpi-v2-blue">
+            <div class="kpi-v2-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="kpi-v2-body">
+              <div class="kpi-v2-label">Próximas actividades</div>
+              <div class="kpi-v2-value kpi-v2-value-blue" id="stat-pendientes">—</div>
+              <div class="kpi-v2-sub">Por completar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Main content grid ── -->
+        <div class="dash-grid">
+
+          <!-- LEFT column (wider) -->
+          <div class="dash-grid-main">
+
+            <!-- Semáforo normativo -->
+            <div class="glass-card sem-card">
+              <div class="glass-card-head">
+                <div class="card-title-group"><h3>Semáforo normativo</h3><span class="card-sub">Estado de cumplimiento general</span></div>
+                <span class="sem-badge-status" id="sem-status-label">—</span>
+              </div>
+              <div class="sem-stats">
+                <div class="sem-stat-item">
+                  <div class="sem-stat-header">
+                    <div class="sem-stat-label-wrap"><span class="sem-dot green"></span><span class="sem-stat-label">Cumplen</span></div>
+                    <div class="sem-stat-nums"><span class="sem-stat-count green" id="sem-cumplen">—</span><span class="sem-stat-pct" id="sem-v-pct-cumplen">—</span></div>
+                  </div>
+                  <div class="sem-stat-bar-track"><div class="sem-stat-bar-fill green" id="sem-bar-cumplen" style="width:0%"></div></div>
+                </div>
+                <div class="sem-stat-item">
+                  <div class="sem-stat-header">
+                    <div class="sem-stat-label-wrap"><span class="sem-dot amber"></span><span class="sem-stat-label">En atención</span></div>
+                    <div class="sem-stat-nums"><span class="sem-stat-count amber" id="sem-atencion">—</span><span class="sem-stat-pct" id="sem-v-pct-atencion">—</span></div>
+                  </div>
+                  <div class="sem-stat-bar-track"><div class="sem-stat-bar-fill amber" id="sem-bar-atencion" style="width:0%"></div></div>
+                </div>
+                <div class="sem-stat-item">
+                  <div class="sem-stat-header">
+                    <div class="sem-stat-label-wrap"><span class="sem-dot rose"></span><span class="sem-stat-label">Críticos</span></div>
+                    <div class="sem-stat-nums"><span class="sem-stat-count rose" id="sem-criticos">—</span><span class="sem-stat-pct" id="sem-v-pct-criticos">—</span></div>
+                  </div>
+                  <div class="sem-stat-bar-track"><div class="sem-stat-bar-fill rose" id="sem-bar-criticos" style="width:0%"></div></div>
+                </div>
+              </div>
+              <div class="sem-footer">
+                <div class="sem-footer-item"><span class="sem-footer-label">Total documentos</span><span class="sem-footer-val" id="sem-total-val">—</span></div>
+                <div class="sem-footer-item sem-footer-right"><span class="sem-footer-label">Cumplimiento</span><span class="sem-footer-val" id="sem-pct">—</span></div>
+              </div>
+            </div>
+
+            <!-- Accesos rápidos -->
+            <div class="glass-card">
+              <div class="glass-card-head"><div class="card-title-group"><h3>Accesos rápidos</h3><span class="card-sub">Módulos frecuentes</span></div></div>
+              <div class="quick-actions">
+                <button class="qa-btn" onclick="navigate('doc','Cámara de Comercio')"><div class="qa-icon qa-teal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Doc. Legal</span></button>
+                <button class="qa-btn" onclick="navigate('doc','Actas de Visitas - Secretaría Seccional')"><div class="qa-icon qa-gray"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Actas de Visitas</span></button>
+                <button class="qa-btn" onclick="navigate('doc','Administrador')"><div class="qa-icon qa-amber"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Talento Humano</span></button>
+                <button class="qa-btn" onclick="navigate('sgc-sub','Procesos Estratégicos')"><div class="qa-icon qa-blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><span>Sist. Gestión Calidad</span></button>
+                <button class="qa-btn" onclick="navigate('doc','PGIRS')"><div class="qa-icon qa-teal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>PGIRS</span></button>
+                <button class="qa-btn" onclick="navigate('doc','Alertas Sanitarias')"><div class="qa-icon qa-rose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Alertas Sanitarias</span></button>
+              </div>
+            </div>
+
+            <!-- Actividad reciente -->
+            <div class="glass-card">
+              <div class="glass-card-head"><div class="card-title-group"><h3>Actividad reciente</h3><span class="card-sub">Últimas acciones en tu cuenta</span></div><a href="#" class="chip-link">Ver todo</a></div>
+              <div class="activity-feed" id="activity-list"><div class="empty-state"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="opacity:.35;margin-bottom:8px"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><p>Sin actividad reciente</p></div></div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT column (narrower) -->
+          <div class="dash-grid-side">
+
+            <!-- Estado de documentos -->
+            <div class="glass-card estado-card">
+              <div class="glass-card-head"><div class="card-title-group"><h3>Estado de documentos</h3><span class="card-sub" id="estado-total">—</span></div></div>
+              <div class="estado-body">
+                <div class="donut-wrap donut-lg">
+                  <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle class="donut-track" cx="80" cy="80" r="62"/>
+                    <circle class="donut-fill teal" id="est-arc-vigentes" cx="80" cy="80" r="62" stroke-dasharray="390 390" stroke-dashoffset="390"/>
+                  </svg>
+                  <div class="donut-center">
+                    <span class="donut-num-lg" id="est-total-num">—</span>
+                    <span class="donut-lbl">documentos</span>
+                  </div>
+                </div>
+                <div class="estado-legend">
+                  <div class="estado-legend-item"><span class="estado-legend-dot teal"></span><div class="estado-legend-text"><span class="estado-legend-label">Vigentes</span><span class="estado-legend-val" id="est-vigentes">—</span></div></div>
+                  <div class="estado-legend-item"><span class="estado-legend-dot amber"></span><div class="estado-legend-text"><span class="estado-legend-label">Próx. a vencer</span><span class="estado-legend-val" id="est-prox">—</span></div></div>
+                  <div class="estado-legend-item"><span class="estado-legend-dot rose"></span><div class="estado-legend-text"><span class="estado-legend-label">Vencidos</span><span class="estado-legend-val" id="est-venc">—</span></div></div>
+                  <div class="estado-legend-item"><span class="estado-legend-dot gray"></span><div class="estado-legend-text"><span class="estado-legend-label">Pendientes</span><span class="estado-legend-val" id="est-pend">—</span></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calendario -->
+            <div class="glass-card">
+              <div class="glass-card-head"><div class="card-title-group"><h3>Calendario</h3></div><div class="cal-controls"><button class="cal-arrow" onclick="calNav(-1)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="cal-month" id="cal-label"></span><button class="cal-arrow" onclick="calNav(1)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+              <div class="calendar-wrap" id="calendar"></div>
+              <div class="cal-legend"><div class="legend-item"><span class="legend-dot amber"></span><span>Auditorías</span></div><div class="legend-item"><span class="legend-dot teal"></span><span>Capacitaciones</span></div><div class="legend-item"><span class="legend-dot rose"></span><span>Vencimientos</span></div></div>
+            </div>
+
+            <!-- Alertas activas -->
+            <div class="glass-card">
+              <div class="glass-card-head"><div class="card-title-group"><h3>Alertas activas</h3><span class="card-sub" id="alerts-count">—</span></div><a href="#" class="chip-link">Ver todas</a></div>
+              <div class="alerts-list" id="alert-list"><div class="empty-state"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="opacity:.35;margin-bottom:8px"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/></svg><p>Todo en orden</p></div></div>
+            </div>
+
+          </div>
+        </div><!-- /dash-grid -->
+      </div>
+    </section>
+
+    <!-- VIEW: DOCUMENTS -->
+    <!-- ══ VIEW: DOCUMENTS — split panel ══ -->
+    <section id="view-doc" class="view">
+      <div class="split-view">
+
+        <!-- LEFT: tree panel -->
+        <div class="tree-panel" id="doc-tree-panel">
+          <div class="tree-panel-header">
+            <div class="tree-panel-title-row">
+              <div class="view-breadcrumb" id="doc-breadcrumb">Sección</div>
+            </div>
+            <h2 class="tree-panel-title" id="doc-section-title">Documentos</h2>
+            <button class="tree-add-btn" onclick="openSubcampoModal('doc')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+              Nueva tarjeta
+            </button>
+          </div>
+          <!-- Tree root (section itself) -->
+          <div class="tree-root-item" onclick="clearDocSubcampo()">
+            <div class="tree-root-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h16M4 14h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <span class="tree-root-label">Todos los documentos</span>
+          </div>
+          <!-- Tree items rendered by JS -->
+          <div id="doc-tree-items"></div>
+        </div>
+
+        <!-- RIGHT: content panel -->
+        <div class="content-panel">
+
+          <!-- When nothing selected: cards grid -->
+          <div id="doc-cards-view">
+            <div class="content-panel-header">
+              <div class="content-panel-count" id="doc-cards-count"></div>
+              <div class="content-panel-actions">
+                <button class="btn-cta sm" id="doc-add-btn" onclick="openModal()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+                  <span id="doc-add-label">Agregar documento</span>
+                </button>
+              </div>
+            </div>
+            <!-- Subcampo cards rendered here by JS (replaces subcampo-grid) -->
+            <div class="cards-grid" id="doc-subcampo-grid"></div>
+
+            <!-- Direct doc module: shown when module has no subcampo cards -->
+            <div id="doc-direct-wrap" class="hidden" style="margin-top:16px">
+              <div class="doc-stats-strip" id="doc-direct-stats"></div>
+              <div class="glass-card table-card">
+                <div class="table-toolbar">
+                  <div class="table-search">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    <input type="text" id="doc-direct-search" placeholder="Buscar documento..." oninput="filterDirectTable(this.value)"/>
+                  </div>
+                  <select id="doc-direct-estado" onchange="filterDirectTable(document.getElementById('doc-direct-search').value)" class="filter-select">
+                    <option value="">Todos los estados</option>
+                    <option value="Completo">Completo</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Próximo a vencer">Próximo a vencer</option>
+                    <option value="Vencido">Vencido</option>
+                  </select>
+                </div>
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <thead><tr><th>Documento</th><th>Estado</th><th>Vencimiento</th><th>Observaciones</th><th></th></tr></thead>
+                    <tbody id="doc-direct-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Selected subcampo detail view -->
+          <div id="doc-detail-view" class="hidden">
+            <div class="content-panel-header">
+              <div>
+                <div class="detail-breadcrumb" id="doc-detail-breadcrumb">Sección</div>
+                <h3 class="detail-title" id="doc-detail-title">—</h3>
+              </div>
+              <div class="content-panel-actions">
+                <button class="btn-ghost" onclick="clearDocSubcampo()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Volver
+                </button>
+                <button class="btn-cta sm" onclick="openModal()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+                  <span id="doc-add-label">Agregar documento</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- SUBITEM CARDS — shown above the doc module -->
+            <div id="doc-subitem-cards" class="hidden"></div>
+
+            <!-- Status strip -->
+            <div class="doc-stats-strip" id="doc-stats-strip"></div>
+
+            <!-- Documents table -->
+            <div class="glass-card table-card">
+              <div class="table-toolbar">
+                <div class="table-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input type="text" id="table-search" placeholder="Buscar documento..." aria-label="Buscar documento" oninput="filterTable(this.value)"/></div>
+                <select id="filter-estado" onchange="filterTable(document.getElementById('table-search').value)" class="filter-select"><option value="">Todos los estados</option><option value="Completo">Completo</option><option value="Pendiente">Pendiente</option><option value="Próximo a vencer">Próximo a vencer</option><option value="Vencido">Vencido</option></select>
+              </div>
+              <div class="table-wrap"><table class="data-table"><thead><tr><th>Documento</th><th>Estado</th><th>Vencimiento</th><th>Observaciones</th><th></th></tr></thead><tbody id="doc-tbody"></tbody></table></div>
+            </div>
+          </div>
+
+        </div><!-- /content-panel -->
+      </div><!-- /split-view -->
+    </section>
+
+    <!-- ══ VIEW: SGC SUB — split panel ══ -->
+    <section id="view-sgc-sub" class="view">
+      <div class="split-view">
+
+        <!-- LEFT: tree panel -->
+        <div class="tree-panel" id="sgc-tree-panel">
+          <div class="tree-panel-header">
+            <div class="view-breadcrumb" id="sgc-tree-breadcrumb">Sist Gestión de calidad</div>
+            <h2 class="tree-panel-title" id="sgc-sub-title">Procesos</h2>
+            <button class="tree-add-btn" onclick="openSubcampoModal('sgc')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+              Nueva tarjeta
+            </button>
+          </div>
+          <div class="tree-root-item" onclick="clearSubSelection()">
+            <div class="tree-root-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h16M4 14h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <span class="tree-root-label">Todos los documentos</span>
+          </div>
+          <div id="sgc-tree-items"></div>
+        </div>
+
+        <!-- RIGHT: content panel -->
+        <div class="content-panel">
+
+          <!-- Cards view (no subcampo selected) -->
+          <div id="sgc-cards-view">
+            <div class="content-panel-header">
+              <div class="content-panel-count" id="sgc-cards-count"></div>
+              <div class="content-panel-actions">
+                <button class="btn-cta sm" id="sgc-add-btn" onclick="openModal()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+                  <span id="sgc-add-label">Agregar documento</span>
+                </button>
+              </div>
+            </div>
+            <div class="cards-grid" id="sgc-subcat-grid"></div>
+          </div>
+
+          <!-- Subcampo detail view -->
+          <div id="sgc-detail-view" class="hidden">
+            <div class="content-panel-header">
+              <div>
+                <div class="detail-breadcrumb" id="sgc-detail-breadcrumb">Sist Gestión de calidad</div>
+                <h3 class="detail-title" id="sgc-detail-title">—</h3>
+              </div>
+              <div class="content-panel-actions">
+                <button class="btn-ghost" onclick="clearSubSelection()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Volver</button>
+                <button class="btn-cta sm" onclick="openModal()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg><span id="sgc-add-label">Agregar documento</span></button>
+              </div>
+            </div>
+
+            <!-- SUBITEM CARDS — shown above the doc module -->
+            <div id="sgc-subitem-cards" class="hidden"></div>
+
+            <div class="doc-stats-strip" id="sgc-stats-strip"></div>
+            <div class="glass-card table-card">
+              <div class="table-toolbar">
+                <div class="table-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input type="text" id="sgc-table-search" placeholder="Buscar documento..." aria-label="Buscar documento SGC" oninput="filterSgcTable(this.value)"/></div>
+                <select id="sgc-filter-estado" onchange="filterSgcTable(document.getElementById('sgc-table-search').value)" class="filter-select"><option value="">Todos los estados</option><option value="Completo">Completo</option><option value="Pendiente">Pendiente</option><option value="Próximo a vencer">Próximo a vencer</option><option value="Vencido">Vencido</option></select>
+              </div>
+              <div class="table-wrap"><table class="data-table"><thead><tr><th>Documento</th><th>Estado</th><th>Vencimiento</th><th>Observaciones</th><th></th></tr></thead><tbody id="sgc-doc-tbody"></tbody></table></div>
+            </div>
+          </div>
+
+        </div><!-- /content-panel -->
+      </div><!-- /split-view -->
+    </section>
+</div>
+
+<!-- ═══════════ MODAL: DOCUMENT ═══════════ -->
+<div id="modal-overlay" class="modal-overlay hidden" onclick="closeModalOutside(event)">
+  <div class="modal-sheet" style="max-width:560px">
+    <div class="modal-header"><div><h3 id="modal-title">Agregar documento</h3><p id="modal-sub">Completa la información del documento</p></div><button class="modal-close-btn" onclick="closeModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <!-- Nombre -->
+        <div class="field-group full">
+          <label class="field-label">Nombre del documento *</label>
+          <div class="field-wrap"><input type="text" id="modal-nombre" class="field-input" placeholder="Ej: Cámara de Comercio 2024"/></div>
+        </div>
+        <!-- Link -->
+        <div class="field-group full">
+          <label class="field-label">Link del documento</label>
+          <div class="field-wrap">
+            <svg class="field-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <input type="url" id="modal-link" class="field-input" placeholder="https://drive.google.com/..."/>
+          </div>
+        </div>
+        <!-- Imagen -->
+        <div class="field-group full">
+          <label class="field-label">Imagen del documento (opcional)</label>
+          <label class="img-upload-area" id="img-upload-area" for="modal-image-file">
+            <input type="file" id="modal-image-file" accept="image/*,application/pdf" onchange="onImageSelected(this)" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"/>
+            <div class="img-upload-label">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <strong>Haz clic para seleccionar</strong>
+              <span>PNG, JPG, GIF, PDF — máx 5 MB</span>
+            </div>
+            <img id="modal-img-preview" class="img-preview" src="" alt="Vista previa"/>
+            <p id="modal-img-filename" style="font-size:.75rem;color:var(--teal);margin-top:6px;display:none"></p>
+          </label>
+        </div>
+        <!-- Estado + Fecha -->
+        <div class="field-group">
+          <label class="field-label">Estado</label>
+          <div class="field-wrap"><select id="modal-estado" class="field-input"><option value="Completo">✅ Completo</option><option value="Pendiente">🔶 Pendiente</option><option value="Próximo a vencer">⚠️ Próximo a vencer</option><option value="Vencido">🔴 Vencido</option></select></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Fecha de vencimiento</label>
+          <div class="field-wrap"><input type="date" id="modal-fecha" class="field-input"/></div>
+        </div>
+        <!-- Observaciones -->
+        <div class="field-group full">
+          <label class="field-label">Observaciones</label>
+          <div class="field-wrap"><textarea id="modal-obs" class="field-input" rows="2" placeholder="Notas adicionales..."></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn-cta sm" onclick="saveDocument()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="modal-save-label">Guardar</span></button></div>
+  </div>
+</div>
+
+<!-- ═══════════ MODAL: PROFILE ═══════════ -->
+<div id="profile-modal-overlay" class="modal-overlay hidden" onclick="closeProfileOutside(event)">
+  <div class="modal-sheet" style="max-width:540px">
+    <div class="modal-header"><div><h3>Mi perfil</h3><p>Actualiza tu información personal</p></div><button class="modal-close-btn" onclick="closeProfileModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+    <div class="profile-tabs"><button class="profile-tab active" id="tab-info" onclick="switchProfileTab('info')">Información personal</button><button class="profile-tab" id="tab-pwd" onclick="switchProfileTab('password')">Cambiar contraseña</button></div>
+    <div class="modal-body" id="profile-tab-info">
+      <div class="profile-avatar-section">
+        <div class="profile-big-avatar" id="profile-big-avatar">FD</div>
+        <div><p style="font-size:.86rem;font-weight:700;color:var(--text-1)" id="profile-display-name">Usuario</p><small style="color:var(--text-3)" id="profile-display-email">—</small></div>
+      </div>
+      <div class="modal-grid">
+        <div class="field-group full"><label class="field-label">Nombre completo</label><div class="field-wrap"><input type="text" id="profile-name" class="field-input"/></div></div>
+        <div class="field-group"><label class="field-label">Cédula</label><div class="field-wrap"><input type="text" id="profile-cedula" class="field-input"/></div></div>
+        <div class="field-group"><label class="field-label">Teléfono</label><div class="field-wrap"><input type="tel" id="profile-telefono" class="field-input"/></div></div>
+        <div class="field-group"><label class="field-label">Establecimiento</label><div class="field-wrap"><input type="text" id="profile-establecimiento" class="field-input"/></div></div>
+        <div class="field-group"><label class="field-label">NIT</label><div class="field-wrap"><input type="text" id="profile-nit" class="field-input"/></div></div>
+        <div class="field-group full"><label class="field-label">Dirección</label><div class="field-wrap"><input type="text" id="profile-direccion" class="field-input"/></div></div>
+        <div class="field-group full"><label class="field-label">Cargo / Rol</label><div class="field-wrap"><input type="text" id="profile-role" class="field-input"/></div></div>
+      </div>
+    </div>
+    <div class="modal-body hidden" id="profile-tab-pwd">
+      <div class="modal-grid">
+        <div class="field-group full"><label class="field-label">Nueva contraseña</label>
+          <div class="field-wrap"><svg class="field-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="password" id="profile-new-pwd" class="field-input has-right-icon" placeholder="Mínimo 6 caracteres"/>
+          <button type="button" class="toggle-pwd" onclick="togglePwd('profile-new-pwd',this)" tabindex="-1"><svg class="eye-off" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/></svg><svg class="eye-on hidden" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M2 4.27l2.28 2.28.46.46A11.8 11.8 0 001 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27z" fill="currentColor"/></svg></button>
+          </div>
+        </div>
+        <div class="field-group full"><label class="field-label">Confirmar contraseña</label>
+          <div class="field-wrap"><svg class="field-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="password" id="profile-confirm-pwd" class="field-input has-right-icon" placeholder="Repite la contraseña"/>
+          <button type="button" class="toggle-pwd" onclick="togglePwd('profile-confirm-pwd',this)" tabindex="-1"><svg class="eye-off" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/></svg><svg class="eye-on hidden" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M2 4.27l2.28 2.28.46.46A11.8 11.8 0 001 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27z" fill="currentColor"/></svg></button>
+          </div>
+        </div>
+        <p class="form-error" id="pwd-change-error" style="grid-column:1/-1;color:var(--rose)"></p>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn-ghost" onclick="closeProfileModal()">Cancelar</button><button class="btn-cta sm" onclick="saveProfile()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Guardar cambios</span></button></div>
+  </div>
+</div>
+
+<!-- ═══════════ MODAL: SUBCAMPO ═══════════ -->
+<div id="subcampo-modal-overlay" class="modal-overlay hidden" onclick="closeSubcampoModalOutside(event)">
+  <div class="modal-sheet" style="max-width:420px">
+    <div class="modal-header">
+      <div><h3 id="subcampo-modal-title">Crear subcampo</h3><p id="subcampo-modal-ctx">Nuevo subcampo en esta sección</p></div>
+      <button class="modal-close-btn" onclick="closeSubcampoModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="subcampo-form">
+      <div class="field-group">
+        <label class="field-label">Nombre del subcampo *</label>
+        <div class="field-wrap"><input type="text" id="subcampo-name" class="field-input" placeholder="Ej: Misión, Visión, Planeación 2025..." maxlength="80"/></div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Descripción (opcional)</label>
+        <div class="field-wrap"><input type="text" id="subcampo-desc" class="field-input" placeholder="Breve descripción"/></div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Orden</label>
+        <div class="field-wrap">
+          <input type="number" id="subcampo-order" class="field-input" placeholder="1" min="1" style="max-width:120px"/>
+        </div>
+        <small style="font-size:.72rem;color:var(--text-3);margin-top:3px;display:block">Las tarjetas se ordenan de menor a mayor. Ej: 1 aparece primero.</small>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeSubcampoModal()">Cancelar</button>
+      <button class="btn-cta sm" id="subcampo-save-btn" onclick="saveSubcampo()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <span id="subcampo-save-label">Crear subcampo</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FILE VIEWER ═══════════ -->
+<div id="file-viewer" class="viewer-overlay hidden" onclick="closeViewerOutside(event)">
+  <div class="viewer-header">
+    <span class="viewer-filename" id="viewer-filename">Documento</span>
+    <div class="viewer-actions">
+      <button class="viewer-btn open-btn" onclick="openViewerInWindow()" id="viewer-open-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Ver en ventana
+      </button>
+      <button class="viewer-btn close-btn" onclick="closeViewer()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Cerrar
+      </button>
+    </div>
+  </div>
+  <div class="viewer-body" id="viewer-body">
+    <div class="viewer-loading">Cargando...</div>
+  </div>
+</div>
+
+<!-- ═══════════ MODAL: ARCHIVO DE NODO (subítem / sub-subítem) ═══════════ -->
+<div id="node-doc-overlay" class="modal-overlay hidden" onclick="closeNodeDocOutside(event)">
+  <div class="modal-sheet" style="max-width:500px">
+    <div class="modal-header">
+      <div><h3 id="node-doc-modal-title">Agregar archivo</h3><p id="node-doc-modal-sub">Adjunta un documento a este nodo</p></div>
+      <button class="modal-close-btn" onclick="closeNodeDoc()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div class="field-group full">
+          <label class="field-label">Nombre / descripción *</label>
+          <div class="field-wrap"><input type="text" id="ndoc-nombre" class="field-input" placeholder="Ej: Acta reunión enero 2025"/></div>
+        </div>
+        <div class="field-group full">
+          <label class="field-label">Link (opcional)</label>
+          <div class="field-wrap">
+            <svg class="field-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <input type="url" id="ndoc-link" class="field-input" placeholder="https://drive.google.com/..."/>
+          </div>
+        </div>
+        <div class="field-group full">
+          <label class="field-label">Archivo PDF o imagen (opcional)</label>
+          <label class="img-upload-area" id="ndoc-upload-area" for="ndoc-file">
+            <input type="file" id="ndoc-file" accept="image/*,application/pdf" onchange="onNdocFileSelected(this)" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"/>
+            <div class="img-upload-label">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <strong>Haz clic para seleccionar</strong>
+              <span>PNG, JPG, GIF, PDF — máx 5 MB</span>
+            </div>
+            <img id="ndoc-img-preview" class="img-preview" src="" alt="Vista previa"/>
+            <p id="ndoc-img-filename" style="font-size:.75rem;color:var(--teal);margin-top:6px;display:none"></p>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeNodeDoc()">Cancelar</button>
+      <button class="btn-cta sm" id="ndoc-save-btn" onclick="saveNodeDoc()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Guardar</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MODAL: CREAR NODO (subítem / sub-subítem) ═══════════ -->
+<div id="node-create-overlay" class="modal-overlay hidden" onclick="closeNodeCreateOutside(event)">
+  <div class="modal-sheet" style="max-width:400px">
+    <div class="modal-header">
+      <div><h3 id="node-create-title">Crear subítem</h3><p id="node-create-sub">Nuevo elemento en la jerarquía</p></div>
+      <button class="modal-close-btn" onclick="closeNodeCreate()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="subcampo-form">
+      <div class="field-group">
+        <label class="field-label">Nombre *</label>
+        <div class="field-wrap"><input type="text" id="node-create-name" class="field-input" placeholder="Ej: Comité de calidad, Acta reunión..." maxlength="80"/></div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Descripción (opcional)</label>
+        <div class="field-wrap"><input type="text" id="node-create-desc" class="field-input" placeholder="Breve descripción"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeNodeCreate()">Cancelar</button>
+      <button class="btn-cta sm" id="node-create-save-btn" onclick="saveNodeCreate()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <span>Crear</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+<div id="mobile-overlay" class="mobile-overlay" onclick="closeMobileSidebar()"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

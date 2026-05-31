@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"c:\\\\Users\\\\YAJA\\\\Desktop\\\\farmadocs-v17\\\\farmadocs-v17\\\\\" )",
+      "Read(//c/Users/YAJA/Desktop/farmadocs-v17/**)"
+    ]
+  }
+}
