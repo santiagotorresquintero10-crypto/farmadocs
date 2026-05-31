@@ -135,9 +135,11 @@ function updateUIUser(user, d) {
   safeSet("topbar-role",    d.role);
   safeSet("topbar-avatar",  initials);
 
-  // Dashboard greeting — name only, never email
-  const firstNameCap = firstName ? firstName.charAt(0).toUpperCase() + firstName.slice(1) : firstName;
-  safeSet("dash-greeting",  `${greet} familia, ${firstNameCap} 👋`);
+  // Dashboard greeting — full name, never email
+  const fullNameCap = displayName
+    ? displayName.split(" ").map(w => w ? w.charAt(0).toUpperCase() + w.slice(1) : w).join(" ")
+    : displayName;
+  safeSet("dash-greeting",  `${greet}, ${fullNameCap} 👋`);
   safeSet("dash-sub",       "Aquí tienes el resumen general de tu sistema");
 
   // Profile dropdown
