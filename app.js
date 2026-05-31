@@ -676,25 +676,25 @@ window.deleteNodeSubitem = async (nodeFid, subcampoId, context) => {
 };
 
 // Show inline rename form inside the card (replaces name with input)
-window.showRenameForm = (nodeFid, currentName, subcampoId, context) => {
-  const nameEl = g(`sic-name-${nodeFid}`);
-  if (!nameEl) return;
-  nameEl.outerHTML = `
-    <form class="sic-rename-form" id="sic-form-${nodeFid}"
-      onsubmit="event.preventDefault();saveRenameForm('${nodeFid}','${subcampoId}','${context}')">
-      <input type="text" id="sic-input-${nodeFid}" value="${esc2(currentName)}"
-        placeholder="Nuevo nombre..." maxlength="80" onclick="event.stopPropagation()"/>
-      <button type="submit" class="sic-rename-save" onclick="event.stopPropagation()" title="Guardar">✓</button>
-      <button type="button" class="sic-rename-cancel"
-        onclick="event.stopPropagation();cancelRenameForm('${nodeFid}','${currentName}','${subcampoId}','${context}')" title="Cancelar">✕</button>
-    </form>`;
-  setTimeout(() => { const i=g(`sic-input-${nodeFid}`); if(i){i.focus();i.select();} }, 30);
-};
+// ── Rename subitem via modal ──
+let _renameNodeCtx = null;
 
-window.saveRenameForm = async (nodeFid, subcampoId, context) => {
-  const input = g(`sic-input-${nodeFid}`);
-  const newName = input?.value.trim();
-  if (!newName) return;
+window.showRenameForm = (nodeFid, currentName, subcampoId, context) => {
+  _renameNodeCtx = { nodeFid, subcampoId, context, originalName: currentName };
+  const input = g('rename-node-input');
+  if (input) input.value = currentName;
+  g('rename-node-overlay').classList.remove('hidden');
+  setTimeout(() => { if(input){ input.focus(); input.select(); } }, 40);
+};
+window.closeRenameNode = () => g('rename-node-overlay').classList.add('hidden');
+window.closeRenameNodeOutside = (e) => { if (e.target.id === 'rename-node-overlay') closeRenameNode(); };
+
+window.saveRenameNode = async () => {
+  if (!_renameNodeCtx) return;
+  const { nodeFid, subcampoId, context } = _renameNodeCtx;
+  const newName = (g('rename-node-input')?.value || '').trim();
+  if (!newName) { showToast('Ingresa un nombre.', 'error'); return; }
+  const btn = g('rename-node-save-btn'); setLoading(btn, true);
   try {
     await updateDoc(doc(db, 'nodes', nodeFid), { name: newName });
     if (_nodeCache[subcampoId]) {
@@ -715,15 +715,10 @@ window.saveRenameForm = async (nodeFid, subcampoId, context) => {
     const container = g(containerId);
     const nodes = (_nodeCache[subcampoId]||[]).filter(n=>n.level===0);
     if (container) container.innerHTML = buildSubitemCardBar(subcampoId, nodes, context);
-    showToast(`Subítem renombrado`, 'success');
+    closeRenameNode();
+    showToast('Subítem renombrado', 'success');
   } catch(e) { showToast("Error: " + e.message, "error"); }
-};
-
-window.cancelRenameForm = (nodeFid, originalName, subcampoId, context) => {
-  const form = g(`sic-form-${nodeFid}`);
-  if (form) {
-    form.outerHTML = `<div class="sic-card-name" id="sic-name-${nodeFid}">${esc2(originalName)}</div>`;
-  }
+  finally { setLoading(btn, false); }
 };
 
 // ── Subcampo modal state ──
@@ -1098,41 +1093,35 @@ function renderStatsStrip(docs, stripId) {
         px=docs.filter(d=>d.estado==="Próximo a vencer").length,
         v=docs.filter(d=>d.estado==="Vencido").length;
 
-  // Determine which table/filter corresponds to this strip
-  const filterFn = stripId === "doc-direct-stats"
-    ? (estado) => filterDirectTableByStatus(stripId, estado)
-    : stripId === "sgc-stats-strip"
-    ? (estado) => filterSgcTableByStatus(stripId, estado)
-    : (estado) => filterDocTableByStatus(stripId, estado);
+  const chip = (estado, count, color, label) =>
+    `<div class="stat-chip" onclick="applyStatFilter('${stripId}','${estado}')" data-filter="${estado}"><span class="stat-chip-dot" style="background:${color}"></span>${count} ${label}</div>`;
 
-  strip.innerHTML=`
-    <div class="stat-chip" onclick="(${filterFn.toString()})('')" data-strip="${stripId}" data-filter=""><span class="stat-chip-dot" style="background:var(--text-3)"></span>${t} total</div>
-    <div class="stat-chip" onclick="(${filterFn.toString()})('Completo')" data-strip="${stripId}" data-filter="Completo"><span class="stat-chip-dot" style="background:var(--green)"></span>${c} completo${c!==1?'s':''}</div>
-    ${p?`<div class="stat-chip" onclick="(${filterFn.toString()})('Pendiente')" data-strip="${stripId}" data-filter="Pendiente"><span class="stat-chip-dot" style="background:var(--amber)"></span>${p} pendiente${p!==1?'s':''}</div>`:""}
-    ${px?`<div class="stat-chip" onclick="(${filterFn.toString()})('Próximo a vencer')" data-strip="${stripId}" data-filter="Próximo a vencer"><span class="stat-chip-dot" style="background:#eab308"></span>${px} próximo${px!==1?'s':''} a vencer</div>`:""}
-    ${v?`<div class="stat-chip" onclick="(${filterFn.toString()})('Vencido')" data-strip="${stripId}" data-filter="Vencido"><span class="stat-chip-dot" style="background:var(--rose)"></span>${v} vencido${v!==1?'s':''}</div>`:""}
-  `;
-  // Store full docs list on strip element for filtering
+  strip.innerHTML =
+    chip("", t, "var(--text-3)", "total") +
+    chip("Completo", c, "var(--green)", c!==1?"completos":"completo") +
+    (p ? chip("Pendiente", p, "var(--amber)", p!==1?"pendientes":"pendiente") : "") +
+    (px ? chip("Próximo a vencer", px, "#eab308", px!==1?"próximos a vencer":"próximo a vencer") : "") +
+    (v ? chip("Vencido", v, "var(--rose)", v!==1?"vencidos":"vencido") : "");
+
+  // Mark "total" active by default and store the docs for filtering
   strip._allDocs = docs;
+  const totalChip = strip.querySelector('.stat-chip[data-filter=""]');
+  if (totalChip) totalChip.classList.add('active');
 }
 
-function _applyStripFilter(stripId, estado) {
+// Single global handler for all stat strips
+window.applyStatFilter = (stripId, estado) => {
   const strip = g(stripId); if (!strip) return;
-  // Update active chip
   strip.querySelectorAll('.stat-chip').forEach(c => {
     c.classList.toggle('active', c.dataset.filter === estado);
   });
   const docs = strip._allDocs || [];
   const filtered = estado ? docs.filter(d => d.estado === estado) : docs;
-  // Render to correct tbody
-  if (stripId === 'doc-direct-stats')  renderTableBody(filtered, 'doc-direct-tbody');
-  else if (stripId === 'sgc-stats-strip') renderTableBody(filtered, 'sgc-doc-tbody');
-  else renderTableBody(filtered, 'doc-tbody');
-}
-
-window.filterDocTableByStatus    = (s, e) => _applyStripFilter(s, e);
-window.filterSgcTableByStatus    = (s, e) => _applyStripFilter(s, e);
-window.filterDirectTableByStatus = (s, e) => _applyStripFilter(s, e);
+  const tbodyId = stripId === 'doc-direct-stats' ? 'doc-direct-tbody'
+                : stripId === 'sgc-stats-strip'  ? 'sgc-doc-tbody'
+                : 'doc-tbody';
+  renderTableBody(filtered, tbodyId);
+};
 
 function badgeClass(e){return{Completo:"badge-green",Pendiente:"badge-amber","Próximo a vencer":"badge-yellow",Vencido:"badge-rose"}[e]||"";}
 

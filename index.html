@@ -868,6 +868,30 @@
   </div>
 </div>
 
+<!-- ═══════════ MODAL: RENOMBRAR SUBÍTEM ═══════════ -->
+<div id="rename-node-overlay" class="modal-overlay hidden" onclick="closeRenameNodeOutside(event)">
+  <div class="modal-sheet" style="max-width:380px">
+    <div class="modal-header">
+      <div><h3>Editar subítem</h3><p>Cambia el nombre del subítem</p></div>
+      <button class="modal-close-btn" onclick="closeRenameNode()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="subcampo-form">
+      <div class="field-group">
+        <label class="field-label">Nombre del subítem *</label>
+        <div class="field-wrap"><input type="text" id="rename-node-input" class="field-input" placeholder="Nombre del subítem" maxlength="80" onkeydown="if(event.key==='Enter')saveRenameNode()"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeRenameNode()">Cancelar</button>
+      <button class="btn-cta sm" id="rename-node-save-btn" onclick="saveRenameNode()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Guardar</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
 <div id="toast-container" class="toast-container"></div>
 <div id="mobile-overlay" class="mobile-overlay" onclick="closeMobileSidebar()"></div>
 <script type="module" src="app.js"></script>
