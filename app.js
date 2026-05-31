@@ -136,7 +136,8 @@ function updateUIUser(user, d) {
   safeSet("topbar-avatar",  initials);
 
   // Dashboard greeting — name only, never email
-  safeSet("dash-greeting",  `${greet}, ${firstName} 👋`);
+  const firstNameCap = firstName ? firstName.charAt(0).toUpperCase() + firstName.slice(1) : firstName;
+  safeSet("dash-greeting",  `${greet} familia, ${firstNameCap} 👋`);
   safeSet("dash-sub",       "Aquí tienes el resumen general de tu sistema");
 
   // Profile dropdown
